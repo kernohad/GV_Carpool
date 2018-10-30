@@ -3,6 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_radar">Radar</string>
+    <string name="title_profile">Profile</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
