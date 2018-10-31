@@ -10,4 +10,7 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="logo">Logo</string>
+    <string name="to_label">To:</string>
+    <string name="from_label">From:</string>
+    <string name="when_label">When:</string>
 </resources>
