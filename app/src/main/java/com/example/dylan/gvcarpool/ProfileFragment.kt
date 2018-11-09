@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.text.method.ScrollingMovementMethod
+import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile.view.*
+
 
 class ProfileFragment : Fragment() {
 
@@ -14,7 +18,13 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val viewOfLayout = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        val s = ScrollingMovementMethod()
+        viewOfLayout.aboutTextView.movementMethod = s
+
+
+        return viewOfLayout
     }
 
 
