@@ -1,4 +1,4 @@
-package com.example.dylan.gvcarpool
+package com.example.dndMobile.gvcarpool
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -11,9 +11,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        loginButton.setOnClickListener{view ->
+        loginButton.setOnClickListener{ _ ->
             // TODO: Make and call firebase login function. For now, just launch main activity
             val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        registerLabel.setOnClickListener { _ ->
+            // Make intent to the register activity
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
     }
