@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         val dividerItemDecoration = DividerItemDecoration(feed_recycler.context, DividerItemDecoration.VERTICAL)
         feed_recycler.addItemDecoration(dividerItemDecoration)
 
-        makeButton.setOnClickListener{view ->
+        makeButton.setOnClickListener{ _ ->
             val intent = Intent(this.context, NewCarpoolActivity::class.java)
             startActivity(intent)
         }
