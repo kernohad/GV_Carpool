@@ -1,4 +1,4 @@
-package com.example.dylan.gvcarpool
+package com.example.dndMobile.gvcarpool
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -11,7 +11,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        registerButton.setOnClickListener { view ->
+        registerButton.setOnClickListener { _ ->
             //TODO: Change clickListener to call validation function if that passes then make intent.
             //TODO:     Probably put conditional logic to call intent inside the validate function. Only have function call here.
 

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "185150224312",
+    "firebase_url": "https://gvcarpool-4dd1f.firebaseio.com",
+    "project_id": "gvcarpool-4dd1f",
+    "storage_bucket": "gvcarpool-4dd1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185150224312:android:9f94fef472a28b69",
+        "android_client_info": {
+          "package_name": "com.example.dndMobile.gvcarpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185150224312-kb600arm18b4gt4l6v8sohfbnvbuv2e0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYuviMZVVz8BRmo-6KQTDj7S_Y0qJyn7o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
