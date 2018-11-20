@@ -20,10 +20,12 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val viewOfLayout = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val s = ScrollingMovementMethod()
-        viewOfLayout.aboutTextView.movementMethod = s
+//        val s = ScrollingMovementMethod()
+        viewOfLayout.aboutTextView.movementMethod = ScrollingMovementMethod()
 
 
+        //TODO: Find out of profile belongs to current user or not
+        //      Allow edits to profile if so
         return viewOfLayout
     }
 
