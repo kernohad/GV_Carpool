@@ -13,4 +13,6 @@
     <string name="to_label">To:</string>
     <string name="from_label">From:</string>
     <string name="when_label">When:</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm Password</string>
 </resources>
