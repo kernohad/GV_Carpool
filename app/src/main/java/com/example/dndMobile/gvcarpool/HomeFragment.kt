@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         for (x in 1..10) {
             testArray.add("User $x")
         }
-        viewAdapter = HomeFeedAdapter(testArray.toTypedArray())
+        viewAdapter = HomeFeedAdapter(testArray.toTypedArray()) {data: String -> itemClicked(data)}     // TODO: Refactor 'data' variable to something meaningful
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -59,6 +59,14 @@ class HomeFragment : Fragment() {
         }
     }
 
+    // The function that is called whenever an item is clicked.
+    private fun itemClicked(data: String) {     // TODO: Refactor 'data' variable to something meaningful
+        // Make intent to Feed Detail Activity and pass the data
+        val intent = Intent(activity, FeedDetailActivity::class.java)
+        intent.putExtra("data", data)       // TODO: Change 'data' extra name to something meaningful
+        startActivity(intent)
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -78,7 +86,7 @@ class HomeFragment : Fragment() {
 
 }
 
-class HomeFeedAdapter(private val dataset: Array<String>) : RecyclerView.Adapter<HomeFeedAdapter.ViewHolder>() {
+class HomeFeedAdapter(private val dataset: Array<String>, val clickListener: (String) -> Unit) : RecyclerView.Adapter<HomeFeedAdapter.ViewHolder>() {
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -103,7 +111,7 @@ class HomeFeedAdapter(private val dataset: Array<String>) : RecyclerView.Adapter
         // TODO: This is where we update the field in each item with the correct info. For example, update nameField below
         holder.layout.nameField.text = dataset[position]
 
-        //TODO: Remove this if code. Just to show sample data
+        //TODO: Remove this if code setting typeField. Just to show sample data
         if(position % 2 == 0){
             holder.layout.typeField.text = "Request"
         }
@@ -112,6 +120,12 @@ class HomeFeedAdapter(private val dataset: Array<String>) : RecyclerView.Adapter
             holder.layout.typeField.setBackgroundResource(R.drawable.offer_background)
         }else if(holder.layout.typeField.text == "Request"){
             holder.layout.typeField.setBackgroundResource(R.drawable.request_background)
+        }
+
+        // Set the clickListener for each item. Using the function passed as a parameter to the Adapter
+        holder.layout.setOnClickListener {
+            //TODO: Pass meaningful data when clicked to retrieve the correct detail page, not test data.
+            clickListener("Test Data String")
         }
     }
 
