@@ -1,4 +1,4 @@
-package com.example.dylan.gvcarpool
+package com.example.dndMobile.gvcarpool
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity

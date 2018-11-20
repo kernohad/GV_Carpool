@@ -1,4 +1,4 @@
-package com.example.dylan.gvcarpool
+package com.example.dndMobile.gvcarpool
 
 import android.net.Uri
 import android.os.Bundle

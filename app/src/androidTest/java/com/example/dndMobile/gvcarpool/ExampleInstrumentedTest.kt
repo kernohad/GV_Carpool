@@ -1,4 +1,4 @@
-package com.example.dylan.gvcarpool
+package com.example.dndMobile.gvcarpool
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
