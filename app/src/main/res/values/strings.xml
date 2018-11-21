@@ -22,4 +22,6 @@
     <string name="gas_money_label">Gas money:</string>
     <string name="accept">Accept</string>
     <string name="profile_picture">Profile Picture</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full Name</string>
 </resources>
