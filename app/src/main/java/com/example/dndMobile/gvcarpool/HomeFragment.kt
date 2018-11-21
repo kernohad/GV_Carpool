@@ -116,6 +116,7 @@ class HomeFeedAdapter(private val dataset: Array<String>, val clickListener: (St
             holder.layout.typeField.text = "Request"
         }
 
+        // Set the typeField background based on type (Offer/Request)
         if(holder.layout.typeField.text == "Offer"){
             holder.layout.typeField.setBackgroundResource(R.drawable.offer_background)
         }else if(holder.layout.typeField.text == "Request"){
@@ -125,7 +126,8 @@ class HomeFeedAdapter(private val dataset: Array<String>, val clickListener: (St
         // Set the clickListener for each item. Using the function passed as a parameter to the Adapter
         holder.layout.setOnClickListener {
             //TODO: Pass meaningful data when clicked to retrieve the correct detail page, not test data.
-            clickListener("Test Data String")
+            // TODO: Currently this just passes the typeField to set. We will need to pass more info. Maybe even an object
+            clickListener(holder.layout.typeField.text.toString())
         }
     }
 
