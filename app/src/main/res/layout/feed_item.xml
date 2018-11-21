@@ -18,7 +18,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/typeField"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/nameField"
-            app:srcCompat="@drawable/profile_placeholder" />
+            app:srcCompat="@drawable/profile_placeholder"
+            android:contentDescription="@string/profile_picture" />
 
         <TextView
             android:id="@+id/nameField"

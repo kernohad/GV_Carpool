@@ -23,4 +23,13 @@
         nulla. Duis ac lorem eu erat aliquam mattis vitae eget neque. Aliquam viverra fusce.</string>
     <string name="forestHills">Forest Hills</string>
     <string name="allendale">Allendale Campus</string>
+    <string name="info">Info</string>
+    <string name="details">Details</string>
+    <string name="total_seats_label">Total Seats:</string>
+    <string name="seats_available_label">Seats available:</string>
+    <string name="gas_money_label">Gas money:</string>
+    <string name="accept">Accept</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="email">Email</string>
+    <string name="full_name">Full Name</string>
 </resources>
