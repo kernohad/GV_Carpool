@@ -15,4 +15,11 @@
     <string name="when_label">When:</string>
     <string name="register">Register</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="info">Info</string>
+    <string name="details">Details</string>
+    <string name="total_seats_label">Total Seats:</string>
+    <string name="seats_available_label">Seats available:</string>
+    <string name="gas_money_label">Gas money:</string>
+    <string name="accept">Accept</string>
+    <string name="profile_picture">Profile Picture</string>
 </resources>
