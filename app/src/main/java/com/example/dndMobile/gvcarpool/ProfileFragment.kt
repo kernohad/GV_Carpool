@@ -18,12 +18,21 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val viewOfLayout = inflater.inflate(R.layout.fragment_profile, container, false)
 
-//        val s = ScrollingMovementMethod()
-        viewOfLayout.aboutTextView.movementMethod = ScrollingMovementMethod()
 
 
         //TODO: Find out of profile belongs to current user or not
         //      Allow edits to profile if so
+
+        //TODO: Pull profile info from db
+        //      :Name
+        //      :bio
+        //      :photo, if exists.  if not, use default
+        //      :common routes
+
+        //TODO: Stop focus when clicked off of bio edit text
+
+        //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
+        
         return viewOfLayout
     }
 

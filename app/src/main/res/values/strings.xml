@@ -15,4 +15,12 @@
     <string name="when_label">When:</string>
     <string name="register">Register</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="name">Louie Laker</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget luctus
+        magna. Duis a leo non erat iaculis varius eu quis nunc. Ut ornare leo quis facilisis tempus.
+        In id sollicitudin nulla. Fusce posuere tincidunt enim vitae bibendum. Praesent ac nunc
+        nulla. Duis ac lorem eu erat aliquam mattis vitae eget neque. Aliquam viverra fusce.</string>
+    <string name="forestHills">Forest Hills</string>
+    <string name="allendale">Allendale Campus</string>
 </resources>
