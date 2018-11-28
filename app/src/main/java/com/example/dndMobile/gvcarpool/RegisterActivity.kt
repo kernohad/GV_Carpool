@@ -59,7 +59,11 @@ class RegisterActivity : AppCompatActivity() {
                                 val currentUserDb = databaseReference!!.child(userId)
                                 currentUserDb.child("fullName").setValue(fullName)
 
-                                launchApp(currentUser)
+                                // Go back to login screen while user verifies email
+                                val intent = Intent(this, LoginActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Snackbar.make(registerRoot, "Authentication failed.", Snackbar.LENGTH_SHORT).show()
@@ -75,13 +79,6 @@ class RegisterActivity : AppCompatActivity() {
             Snackbar.make(registerRoot, "Please fill out all fields.", Snackbar.LENGTH_SHORT).show()
 
         }
-    }
-
-    private fun launchApp(user: FirebaseUser){
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("user", user)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
     }
 
     private fun verifyEmail(){

@@ -37,12 +37,18 @@ class LoginActivity : AppCompatActivity() {
         val password = passwordField.text.toString()
 
         if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)){
+            //Check that email if verified.
             auth!!.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this){ task ->
                         if(task.isSuccessful){
                             //Sign in success. Start app
                             val currentUser: FirebaseUser = auth?.currentUser!!
-                            launchApp(currentUser)
+                            // Check that email is verified
+                            if(currentUser.isEmailVerified){
+                                launchApp(currentUser)
+                            }else{
+                                Snackbar.make(loginRoot, "Email has not been verified. Check your email.", Snackbar.LENGTH_SHORT).show()
+                            }
                         }else{
                             Snackbar.make(loginRoot, "Authentication Failed", Snackbar.LENGTH_SHORT).show()
                         }
@@ -57,7 +63,10 @@ class LoginActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly
         if(auth?.currentUser != null) {
             val currentUser: FirebaseUser = auth?.currentUser!!
-            launchApp(currentUser)
+            // Check that email is verified
+            if(currentUser.isEmailVerified){
+                launchApp(currentUser)
+            }
         }
     }
 
