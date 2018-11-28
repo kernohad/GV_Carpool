@@ -8,7 +8,7 @@
     <color name="white">#FFFFFF</color>
     <color name="green">#1b9b04</color>
     <color name="yellow">#f2ee2b</color>
-
+    <color name="transparent">#00000000</color>
 
 
 </resources>

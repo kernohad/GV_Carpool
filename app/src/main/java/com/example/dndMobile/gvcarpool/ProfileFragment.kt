@@ -1,11 +1,13 @@
 package com.example.dndMobile.gvcarpool
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.dndMobile.gvcarpool.R.drawable.login_input_box
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -46,6 +48,7 @@ class ProfileFragment : Fragment() {
         //      :common routes
         // EXAMPLE of pull info from data passed to fragment and populating field. DB entry will be stored as argument to fragment
 
+
         // Get reference to current Users DB
         val currentUser: FirebaseUser = auth?.currentUser!!
         val userId = currentUser.uid
@@ -58,9 +61,6 @@ class ProfileFragment : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
-        //TODO: Stop focus when clicked off of bio edit text
-
-        //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
 
         return root
     }
@@ -71,15 +71,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: Find out of profile belongs to current user or not
-        //      Allow edits to profile if so
-
-        //TODO: Pull profile info from db and populate fields
-        //      :Name
-        //      :bio
-        //      :photo, if exists.  if not, use default
-        //      :common routes
-        // EXAMPLE of pull info from data passed to fragment and populating field. DB entry will be stored as argument to fragment
 
         // Get reference to current Users DB
         val currentUser: FirebaseUser = auth?.currentUser!!
@@ -97,17 +88,14 @@ class ProfileFragment : Fragment() {
 
         //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
 
-        //Is the user editing their profile or nah?
-        var editMode = false
-
         editButton.setOnClickListener{_ ->
-            editMode = true
 
+            //Make things editable
             aboutEditText.isEnabled = true
-
             saveButton.visibility = View.VISIBLE
             editButton.visibility = View.INVISIBLE
-
+            aboutEditText.setBackgroundResource(R.drawable.login_input_box)
+            editImage.visibility = View.VISIBLE
         }
 
         profilePicture.setOnClickListener{_ ->
@@ -117,10 +105,13 @@ class ProfileFragment : Fragment() {
 
         saveButton.setOnClickListener{_ ->
             //TODO: Store changes in firebase
-            aboutEditText.isEnabled = false
 
+            //Make things not editable
+            aboutEditText.isEnabled = false
+            aboutEditText.setBackgroundResource(R.color.transparent)
             saveButton.visibility = View.INVISIBLE
-            editButton.visibility = View.INVISIBLE
+            editButton.visibility = View.VISIBLE
+            editImage.visibility = View.INVISIBLE
 
         }
     }
