@@ -22,6 +22,22 @@ class ProfileFragment : Fragment() {
         return viewOfLayout
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
