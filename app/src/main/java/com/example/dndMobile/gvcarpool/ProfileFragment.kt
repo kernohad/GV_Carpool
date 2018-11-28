@@ -20,7 +20,7 @@ class ProfileFragment : Fragment() {
 
 
         //TODO: Find out of profile belongs to current user or not
-        //      Allow edits to profile if so
+        //      Allow edits to profile if so1
 
         //TODO: Pull profile info from db and populate fields
         //      :Name
@@ -34,29 +34,6 @@ class ProfileFragment : Fragment() {
         //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
         
         return root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (arguments != null) {
-            val name = arguments?.getString("data")
-            root!!.nameTextView.text = name
-        }
-    }
-
-    // This is used when a new instance of the profile fragment is made for the Profile Activity so we can send data and populate all the fields.
-    // Reference http://chirag-limbachiya.blogspot.com/2017/08/pass-parameters-from-activity-to.html Use this for example of different types.
-    companion object {
-
-        // TODO: make data be of type database entry so we can get all info, not just name
-        fun newInstance(data: String?): ProfileFragment {
-
-            val args = Bundle()
-            args.putString("data", data)
-            val fragment = ProfileFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 
 

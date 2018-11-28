@@ -1,8 +1,9 @@
 package com.example.dndMobile.gvcarpool
 
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -14,14 +15,7 @@ class ProfileActivity : AppCompatActivity() {
         val extras = intent.extras ?: return
         val name = extras.getString("data")
 
-        // Create a new intance of the profile fragment and pass it the data
-        //TODO: Right now we only pass it the name as the data. Make this the entire DB object
-        val profileFragment = ProfileFragment.newInstance(name)
-
-        // Set the fragment to be profile fragment
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.profileFragmentContainer, profileFragment)
-                .commit()
-
+       // TODO: Use data from DB and set all the fields
+        nameTextView.text = name
     }
 }
