@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 
 class ProfileFragment : Fragment() {
-
     private var root: View? = null   // create a global variable which will hold your layout
+
 
     // Reference to firebase authenticator abd DB
     private var auth: FirebaseAuth? = null
@@ -74,11 +74,24 @@ class ProfileFragment : Fragment() {
         //TODO: Find out of profile belongs to current user or not
         //      Allow edits to profile if so
 
-        //TODO: Pull profile info from db
+        //TODO: Pull profile info from db and populate fields
         //      :Name
         //      :bio
         //      :photo, if exists.  if not, use default
         //      :common routes
+        // EXAMPLE of pull info from data passed to fragment and populating field. DB entry will be stored as argument to fragment
+
+        // Get reference to current Users DB
+        val currentUser: FirebaseUser = auth?.currentUser!!
+        val userId = currentUser.uid
+        val userReference = databaseReference!!.child(userId)
+
+        userReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                nameTextView.text = snapshot.child("fullName").value as String
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
         //TODO: Stop focus when clicked off of bio edit text
 
