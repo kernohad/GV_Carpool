@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_marginStart="32dp"
     android:layout_marginEnd="32dp"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:id="@+id/registerRoot">
 
     <ImageView
         android:id="@+id/logoImage"
