@@ -7,9 +7,7 @@ import android.support.design.widget.Snackbar
 import android.text.TextUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_feed_detail.*
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlin.math.sign
 
 class LoginActivity : AppCompatActivity() {
     // Reference to firebase authenticator
@@ -24,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener{ _ ->
             // TODO: Make and call firebase login function. For now, just launch main activity
-            signIn()
+            login()
         }
 
         registerLabel.setOnClickListener { _ ->
@@ -34,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun signIn(){
+    private fun login(){
         val email = emailField.text.toString()
         val password = passwordField.text.toString()
 

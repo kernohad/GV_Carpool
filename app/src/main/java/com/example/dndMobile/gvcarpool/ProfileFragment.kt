@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.text.method.ScrollingMovementMethod
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.view.*
 
@@ -13,10 +16,21 @@ import kotlinx.android.synthetic.main.fragment_profile.view.*
 class ProfileFragment : Fragment() {
     private var root: View? = null   // create a global variable which will hold your layout
 
+    // Reference to firebase authenticator abd DB
+    private var auth: FirebaseAuth? = null
+    private var databaseReference: DatabaseReference? = null
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        // Initialize firebase reference
+        auth = FirebaseAuth.getInstance()
+
+        // Set DB refernece to Users DB
+        databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
 
         //TODO: Find out of profile belongs to current user or not
@@ -28,6 +42,18 @@ class ProfileFragment : Fragment() {
         //      :photo, if exists.  if not, use default
         //      :common routes
         // EXAMPLE of pull info from data passed to fragment and populating field. DB entry will be stored as argument to fragment
+
+        // Get reference to current Users DB
+        val currentUser: FirebaseUser = auth?.currentUser!!
+        val userId = currentUser.uid
+        val userReference = databaseReference!!.child(userId)
+
+        userReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                nameTextView.text = snapshot.child("fullName").value as String
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
 
         //TODO: Stop focus when clicked off of bio edit text
 
