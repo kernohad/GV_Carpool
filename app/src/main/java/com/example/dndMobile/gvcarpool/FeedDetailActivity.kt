@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.NavUtils
 import kotlinx.android.synthetic.main.activity_feed_detail.*
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.feed_item.view.*
 
 class FeedDetailActivity : AppCompatActivity() {
@@ -43,7 +44,11 @@ class FeedDetailActivity : AppCompatActivity() {
         profilePicture.setOnClickListener { _ ->
             // Make intent to Profile Activity
             val intent = Intent(this, ProfileActivity::class.java)
-            //TODO: Pass profile DB entry to profile activity as an extra so the screen can be populated
+
+            //TODO: Pass profile DB entry to profile activity as an extra so the screen can be populated. For now, just send name as data
+            val data = nameHeader.text.toString()
+            intent.putExtra("data", data)
+
             startActivity(intent)
 
         }
