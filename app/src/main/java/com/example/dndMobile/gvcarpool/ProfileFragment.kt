@@ -41,6 +41,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_profile, container, false)
 
+
         // Initialize firebase reference
         auth = FirebaseAuth.getInstance()
 
@@ -94,6 +95,9 @@ class ProfileFragment : Fragment() {
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
+        profilePicture.isEnabled = false
+
+
         //TODO: Stop focus when clicked off of bio edit text
 
         //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
@@ -105,6 +109,7 @@ class ProfileFragment : Fragment() {
             saveButton.visibility = View.VISIBLE
             editButton.visibility = View.INVISIBLE
             aboutEditText.setBackgroundResource(R.drawable.login_input_box)
+            profilePicture.isEnabled = true
             editImage.visibility = View.VISIBLE
         }
 
@@ -119,11 +124,13 @@ class ProfileFragment : Fragment() {
         saveButton.setOnClickListener{_ ->
             //TODO: Store changes in firebase
 
+
             //Make things not editable
             aboutEditText.isEnabled = false
             aboutEditText.setBackgroundResource(R.color.transparent)
             saveButton.visibility = View.INVISIBLE
             editButton.visibility = View.VISIBLE
+            profilePicture.isEnabled = false
             editImage.visibility = View.INVISIBLE
 
         }
