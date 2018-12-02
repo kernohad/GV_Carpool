@@ -3,21 +3,19 @@ package com.example.dndMobile.gvcarpool
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.dndMobile.gvcarpool.R.drawable.login_input_box
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.view.*
 
 //Request code for photo picker
 private const val READ_REQUEST_CODE: Int = 42
@@ -30,8 +28,10 @@ class ProfileFragment : Fragment() {
     // Reference to firebase authenticator abd DB
     private var auth: FirebaseAuth? = null
     private var databaseReference: DatabaseReference? = null
+    private var profileUpdates: UserProfileChangeRequest? = null;
 
-
+    //Making sure profile picture was changed
+    private var picChanged = false;
 
     /*******************
      * On Create View
@@ -91,10 +91,12 @@ class ProfileFragment : Fragment() {
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 nameTextView.text = snapshot.child("fullName").value as String
+                profilePicture.setImageURI(auth!!.currentUser?.photoUrl)
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
 
+        //Disable profile picture onClick
         profilePicture.isEnabled = false
 
 
@@ -102,6 +104,7 @@ class ProfileFragment : Fragment() {
 
         //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
 
+        /**EDIT Button Listener*/
         editButton.setOnClickListener{_ ->
 
             //Make things editable
@@ -113,17 +116,24 @@ class ProfileFragment : Fragment() {
             editImage.visibility = View.VISIBLE
         }
 
+        /** PROFILE PICTURE Listener **/
         profilePicture.setOnClickListener{_ ->
-            //TODO: image select/take photo intent
-
             selectImageInAlbum()
-
-
         }
 
+        /**SAVE Button Listener */
         saveButton.setOnClickListener{_ ->
             //TODO: Store changes in firebase
 
+            //If the profile picture has changed, update firebase profile
+            if(picChanged) {
+                auth!!.currentUser?.updateProfile(profileUpdates!!)
+                        ?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.d(TAG, "User profile updated.")
+                            }
+                        }
+            }
 
             //Make things not editable
             aboutEditText.isEnabled = false
@@ -133,6 +143,11 @@ class ProfileFragment : Fragment() {
             profilePicture.isEnabled = false
             editImage.visibility = View.INVISIBLE
 
+            var toast = Toast.makeText(context,"Profile Updated!", Toast.LENGTH_SHORT)
+            toast.setGravity(Gravity.BOTTOM, 0, 170)
+            toast.show()
+
+            picChanged = false;
         }
     }
 
@@ -155,9 +170,14 @@ class ProfileFragment : Fragment() {
             // Instead, a URI to that document will be contained in the return intent
             // provided to this method as a parameter.
             // Pull that URI using resultData.getData().
+            picChanged = true;
             resultData?.data?.also { uri ->
                 Log.i(TAG, "Uri: $uri")
                 profilePicture.setImageURI(uri)
+                // Create a Storage Ref w/ username
+                profileUpdates = UserProfileChangeRequest.Builder()
+                        .setPhotoUri(uri)
+                        .build()
             }
         }
     }
