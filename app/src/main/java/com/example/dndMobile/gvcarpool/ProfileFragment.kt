@@ -91,7 +91,9 @@ class ProfileFragment : Fragment() {
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 nameTextView.text = snapshot.child("fullName").value as String
-                profilePicture.setImageURI(auth!!.currentUser?.photoUrl)
+
+                var fbProfilePicURI = auth!!.currentUser?.photoUrl
+                profilePicture.setImageURI(fbProfilePicURI)
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
