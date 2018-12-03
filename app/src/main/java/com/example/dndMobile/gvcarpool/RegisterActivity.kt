@@ -58,6 +58,9 @@ class RegisterActivity : AppCompatActivity() {
                                 //update user profile information
                                 val currentUserDb = databaseReference!!.child(userId)
                                 currentUserDb.child("fullName").setValue(fullName)
+                                currentUserDb.child("bio").setValue("This is your bio")
+                                currentUserDb.child("commonDep").setValue("GVSU")
+                                currentUserDb.child("commonArr").setValue("GVSU")
 
                                 // Go back to login screen while user verifies email
                                 val intent = Intent(this, LoginActivity::class.java)

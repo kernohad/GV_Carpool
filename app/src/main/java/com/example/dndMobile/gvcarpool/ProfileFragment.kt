@@ -49,13 +49,10 @@ class ProfileFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
 
-        //TODO: Find out of profile belongs to current user or not
-        //      Allow edits to profile if so1
-
         //TODO: Pull profile info from db and populate fields
-        //      :Name
+        //      :Name x
         //      :bio
-        //      :photo, if exists.  if not, use default
+        //      :photo x , if exists.  if not, use default
         //      :common routes
         // EXAMPLE of pull info from data passed to fragment and populating field. DB entry will be stored as argument to fragment
 
@@ -91,9 +88,14 @@ class ProfileFragment : Fragment() {
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 nameTextView.text = snapshot.child("fullName").value as String
+                aboutEditText.setText(snapshot.child("bio").value as String)
+                departureText.text = snapshot.child("commonDep").value as String
+                arrivalText.text = snapshot.child("commonArr").value as String
 
-                var fbProfilePicURI = auth!!.currentUser?.photoUrl
-                profilePicture.setImageURI(fbProfilePicURI)
+                val fbProfilePicURI = auth!!.currentUser?.photoUrl
+                if(fbProfilePicURI != null) {
+                    profilePicture.setImageURI(fbProfilePicURI)
+                }
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
@@ -136,6 +138,10 @@ class ProfileFragment : Fragment() {
                             }
                         }
             }
+
+            userReference.child("bio").setValue(aboutEditText.text.toString())
+            //TODO: Set common arrival/departures
+
 
             //Make things not editable
             aboutEditText.isEnabled = false
