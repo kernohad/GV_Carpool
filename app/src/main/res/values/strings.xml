@@ -32,4 +32,7 @@
     <string name="email">Email</string>
     <string name="full_name">Full Name</string>
     <string name="logout">Logout</string>
+    <string name="notes_label">Notes:</string>
+    <string name="dollar_sign">$</string>
+    <string name="submit">Submit</string>
 </resources>
