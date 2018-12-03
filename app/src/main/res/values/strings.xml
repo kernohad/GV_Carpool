@@ -32,4 +32,17 @@
     <string name="email">Email</string>
     <string name="full_name">Full Name</string>
     <string name="logout">Logout</string>
+    <string name="notes_label">Notes:</string>
+    <string name="dollar_sign">$</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="request">Request</string>
+    <string name="offer">Offer</string>
+    <string name="type_label">Type:</string>
+    <string name="enter_any_extra_details">Enter any extra details.</string>
+    <string name="how_much_gas_money_per_person">How much gas money per person?</string>
+    <string name="how_many_people_can_go">How many people can go?</string>
+    <string name="when_do_you_want_to_leave">When do you want to leave?</string>
+    <string name="where_are_you_leaving_from">Where are you leaving from?</string>
+    <string name="where_do_you_want_to_go">Where do you want to go?</string>
 </resources>
