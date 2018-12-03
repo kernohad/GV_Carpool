@@ -14,4 +14,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="formField" parent="@android:style/TextAppearance">
+        <item name="android:background">@drawable/login_input_box</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="formLabel" parent="@android:style/TextAppearance">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
