@@ -79,6 +79,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var toast = Toast.makeText(context,"Loading Profile..", Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.BOTTOM, 0, 170)
+        toast.show()
 
         // Get reference to current Users DB
         val currentUser: FirebaseUser = auth?.currentUser!!
@@ -151,7 +154,7 @@ class ProfileFragment : Fragment() {
             profilePicture.isEnabled = false
             editImage.visibility = View.INVISIBLE
 
-            var toast = Toast.makeText(context,"Profile Updated!", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(context,"Profile Updated!", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.BOTTOM, 0, 170)
             toast.show()
 
