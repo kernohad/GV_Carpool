@@ -89,8 +89,6 @@ class FeedDetailActivity : AppCompatActivity() {
         profilePicture.setOnClickListener { _ ->
             // Make intent to Profile Activity
             val intent = Intent(this, ProfileActivity::class.java)
-
-            //TODO: Pass profile DB entry to profile activity as an extra so the screen can be populated. For now, just send name as data
             intent.putExtra("userId", userId)
 
             startActivity(intent)
