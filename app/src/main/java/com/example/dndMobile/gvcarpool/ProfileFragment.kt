@@ -28,7 +28,7 @@ class ProfileFragment : Fragment() {
     // Reference to firebase authenticator abd DB
     private var auth: FirebaseAuth? = null
     private var databaseReference: DatabaseReference? = null
-    private var profileUpdates: UserProfileChangeRequest? = null;
+    private var profileUpdates: UserProfileChangeRequest? = null
 
     //Making sure profile picture was changed
     private var picChanged = false;
