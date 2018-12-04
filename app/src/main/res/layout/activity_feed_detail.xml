@@ -177,7 +177,7 @@
             app:layout_constraintTop_toBottomOf="@+id/nameHeader" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/toField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -187,7 +187,7 @@
             app:layout_constraintStart_toEndOf="@+id/toLabel" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/fromField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -197,7 +197,7 @@
             app:layout_constraintStart_toEndOf="@+id/fromLabel" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/whenField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -207,7 +207,7 @@
             app:layout_constraintStart_toEndOf="@+id/whenLabel" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/totalSeatsField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -217,7 +217,7 @@
             app:layout_constraintStart_toEndOf="@+id/totalSeatsLabel" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/seatsAvailableField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -227,7 +227,7 @@
             app:layout_constraintStart_toEndOf="@+id/seatsAvailableLabel" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/gasMoneyField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
