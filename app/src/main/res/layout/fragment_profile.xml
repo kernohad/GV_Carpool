@@ -177,11 +177,19 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:id="@+id/departureText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:gravity="center"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:maxLength="200"
+                android:text=""
+                android:textAlignment="center"
+                android:textColorLink="@android:color/black"
+                android:textCursorDrawable="@android:color/black"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 
@@ -206,11 +214,19 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
                 android:id="@+id/arrivalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:gravity="center"
+                android:background="@android:color/transparent"
+                android:cursorVisible="true"
+                android:maxLength="200"
+                android:text=""
+                android:textAlignment="center"
+                android:textColorLink="@android:color/black"
+                android:textCursorDrawable="@android:color/black"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 
