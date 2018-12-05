@@ -61,6 +61,9 @@ class RegisterActivity : AppCompatActivity() {
                                 currentUserDb.child("bio").setValue("This is your bio")
                                 currentUserDb.child("commonDep").setValue("GVSU")
                                 currentUserDb.child("commonArr").setValue("GVSU")
+                                currentUserDb.child("photoUrl").setValue("")
+                                currentUserDb.child("ridesGiven").setValue(0)
+                                currentUserDb.child("ridesTaken").setValue(0)
 
                                 // Go back to login screen while user verifies email
                                 val intent = Intent(this, LoginActivity::class.java)
