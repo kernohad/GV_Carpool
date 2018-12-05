@@ -15,7 +15,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 
 //Request code for photo picker
 private const val READ_REQUEST_CODE: Int = 42
@@ -30,8 +33,16 @@ class ProfileFragment : Fragment() {
     private var databaseReference: DatabaseReference? = null
     private var profileUpdates: UserProfileChangeRequest? = null
 
+    //Database vars
+    private var fullName: String? = null
+    private var about: String? = null
+    private var departure: String? = null
+    private var arrival: String? = null
+    private var ridesGiven: Int? = null
+    private var ridesTaken: Int? = null
+
     //Making sure profile picture was changed
-    private var picChanged = false;
+    private var picChanged = false
 
     /*******************
      * On Create View
@@ -49,26 +60,41 @@ class ProfileFragment : Fragment() {
         databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
 
-        //TODO: Pull profile info from db and populate fields
-        //      :Name x
-        //      :bio
-        //      :photo x , if exists.  if not, use default
-        //      :common routes
-        // EXAMPLE of pull info from data passed to fragment and populating field. DB entry will be stored as argument to fragment
-
+        var toast = Toast.makeText(context,"Loading Profile..", Toast.LENGTH_SHORT)
+        toast.setGravity(Gravity.BOTTOM, 0, 170)
+        toast.show()
 
         // Get reference to current Users DB
         val currentUser: FirebaseUser = auth?.currentUser!!
         val userId = currentUser.uid
         val userReference = databaseReference!!.child(userId)
 
-        userReference.addValueEventListener(object : ValueEventListener {
+        userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+
             override fun onDataChange(snapshot: DataSnapshot) {
-                nameTextView.text = snapshot.child("fullName").value as String
+
+                if(snapshot.value != null) {
+                    fullName = snapshot.child("fullName").value as String
+                    about = snapshot.child("bio").value as String
+                    departure = snapshot.child("commonDep").value as String
+                    arrival = snapshot.child("commonArr").value as String
+                    ridesGiven = (snapshot.child("ridesGiven").value as Long).toInt()
+                    ridesTaken = (snapshot.child("ridesTaken").value as Long).toInt()
+
+                    nameTextView.text = fullName
+                    aboutEditText.setText(about)
+                    departureText.setText(departure)
+                    arrivalText.setText(arrival)
+                    ridesGivenText.text = ridesGiven.toString()
+                    ridesTakenText.text = ridesTaken.toString()
+
+                    //Picasso to load image.
+                    Picasso.get().load(auth!!.currentUser?.photoUrl).into(profilePicture)
+                }
+
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-
 
         return root
     }
@@ -79,37 +105,18 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var toast = Toast.makeText(context,"Loading Profile..", Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.BOTTOM, 0, 170)
-        toast.show()
+
 
         // Get reference to current Users DB
         val currentUser: FirebaseUser = auth?.currentUser!!
         val userId = currentUser.uid
         val userReference = databaseReference!!.child(userId)
 
-        userReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                nameTextView.text = snapshot.child("fullName").value as String
-                aboutEditText.setText(snapshot.child("bio").value as String)
-                departureText.text = snapshot.child("commonDep").value as String
-                arrivalText.text = snapshot.child("commonArr").value as String
-
-                val fbProfilePicURI = auth!!.currentUser?.photoUrl
-                if(fbProfilePicURI != null) {
-                    profilePicture.setImageURI(fbProfilePicURI)
-                }
-            }
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-
         //Disable profile picture onClick
         profilePicture.isEnabled = false
 
 
         //TODO: Stop focus when clicked off of bio edit text
-
-        //TODO: Figure out if we want common departures/arrivals to be decided by actual data or user specified
 
         /**EDIT Button Listener*/
         editButton.setOnClickListener{_ ->
@@ -121,6 +128,10 @@ class ProfileFragment : Fragment() {
             aboutEditText.setBackgroundResource(R.drawable.login_input_box)
             profilePicture.isEnabled = true
             editImage.visibility = View.VISIBLE
+            departureText.isEnabled = true
+            departureText.setBackgroundResource(R.drawable.login_input_box)
+            arrivalText.isEnabled = true
+            arrivalText.setBackgroundResource(R.drawable.login_input_box)
         }
 
         /** PROFILE PICTURE Listener **/
@@ -130,7 +141,6 @@ class ProfileFragment : Fragment() {
 
         /**SAVE Button Listener */
         saveButton.setOnClickListener{_ ->
-            //TODO: Store changes in firebase
 
             //If the profile picture has changed, update firebase profile
             if(picChanged) {
@@ -143,8 +153,8 @@ class ProfileFragment : Fragment() {
             }
 
             userReference.child("bio").setValue(aboutEditText.text.toString())
-            //TODO: Set common arrival/departures
-
+            userReference.child("commonArr").setValue(arrivalText.text.toString())
+            userReference.child("commonDep").setValue(departureText.text.toString())
 
             //Make things not editable
             aboutEditText.isEnabled = false
@@ -153,6 +163,10 @@ class ProfileFragment : Fragment() {
             editButton.visibility = View.VISIBLE
             profilePicture.isEnabled = false
             editImage.visibility = View.INVISIBLE
+            departureText.isEnabled = false
+            departureText.setBackgroundResource(R.color.transparent)
+            arrivalText.isEnabled = false
+            arrivalText.setBackgroundResource(R.color.transparent)
 
             val toast = Toast.makeText(context,"Profile Updated!", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.BOTTOM, 0, 170)
@@ -162,9 +176,15 @@ class ProfileFragment : Fragment() {
         }
     }
 
+
+    /**
+     * Select an image from the device's album
+     */
     fun selectImageInAlbum() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
             type = "image/*"
         }
         startActivityForResult(intent, READ_REQUEST_CODE)
@@ -189,7 +209,9 @@ class ProfileFragment : Fragment() {
                 profileUpdates = UserProfileChangeRequest.Builder()
                         .setPhotoUri(uri)
                         .build()
+
             }
+
         }
     }
 
