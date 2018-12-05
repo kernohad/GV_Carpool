@@ -30,7 +30,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Test Name"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
@@ -60,9 +60,9 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:cursorVisible="true"
-        android:editable="false"
+        android:enabled="false"
         android:maxLength="200"
-        android:text="@string/lorem"
+        android:text=""
         android:textAlignment="center"
         android:textColor="@android:color/darker_gray"
         android:textColorLink="@android:color/black"
@@ -103,7 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="20"
+                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="24sp" />
 
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="4"
+                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="24sp" />
 
@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/forestHills"
+                android:text=""
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 
@@ -208,7 +208,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/allendale"
+                android:text=""
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
 

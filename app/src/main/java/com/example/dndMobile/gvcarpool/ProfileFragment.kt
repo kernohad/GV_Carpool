@@ -40,6 +40,7 @@ class ProfileFragment : Fragment() {
     private var arrival: String? = null
     private var ridesGiven: Int? = null
     private var ridesTaken: Int? = null
+    private var photoUrl: String? = ""
 
     //Making sure profile picture was changed
     private var picChanged = false
@@ -56,7 +57,7 @@ class ProfileFragment : Fragment() {
         // Initialize firebase reference
         auth = FirebaseAuth.getInstance()
 
-        // Set DB refernece to Users DB
+        // Set DB reference to Users DB
         databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
 
@@ -80,6 +81,7 @@ class ProfileFragment : Fragment() {
                     arrival = snapshot.child("commonArr").value as String
                     ridesGiven = (snapshot.child("ridesGiven").value as Long).toInt()
                     ridesTaken = (snapshot.child("ridesTaken").value as Long).toInt()
+                    photoUrl = snapshot.child("photoUrl").value as String
 
                     nameTextView.text = fullName
                     aboutEditText.setText(about)
@@ -88,8 +90,12 @@ class ProfileFragment : Fragment() {
                     ridesGivenText.text = ridesGiven.toString()
                     ridesTakenText.text = ridesTaken.toString()
 
-                    //Picasso to load image.
-                    Picasso.get().load(auth!!.currentUser?.photoUrl).into(profilePicture)
+                    //if the user has not set a profile picture, don't try to load a non-existent url
+                    //note: without this if statement, the app will crash.
+                    if(photoUrl != "") {
+                        //Picasso to load image.
+                        Picasso.get().load(photoUrl).into(profilePicture)
+                    }
                 }
 
             }
@@ -148,9 +154,13 @@ class ProfileFragment : Fragment() {
                         ?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Log.d(TAG, "User profile updated.")
+                                userReference.child("photoUrl").setValue(auth!!.currentUser?.photoUrl.toString())
                             }
                         }
             }
+
+            //Get either a new Url or a copy of the existing one to save
+            //getNewUrl()
 
             userReference.child("bio").setValue(aboutEditText.text.toString())
             userReference.child("commonArr").setValue(arrivalText.text.toString())
@@ -176,11 +186,31 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    //Get the new photo's URL to save to the database
+    private fun getNewUrl(){
+
+        // Initialize firebase reference
+        auth = FirebaseAuth.getInstance()
+
+        // Get reference to current Users DB
+        val currentUser: FirebaseUser = auth?.currentUser!!
+        val userId = currentUser.uid
+        val userReference = databaseReference!!.child(userId)
+
+        userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                photoUrl = auth!!.currentUser?.photoUrl.toString()
+                userReference.child("photoUrl").setValue(photoUrl)
+            }
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
 
     /**
      * Select an image from the device's album
      */
-    fun selectImageInAlbum() {
+    private fun selectImageInAlbum() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -204,6 +234,7 @@ class ProfileFragment : Fragment() {
             picChanged = true;
             resultData?.data?.also { uri ->
                 Log.i(TAG, "Uri: $uri")
+
                 profilePicture.setImageURI(uri)
                 // Create a Storage Ref w/ username
                 profileUpdates = UserProfileChangeRequest.Builder()
