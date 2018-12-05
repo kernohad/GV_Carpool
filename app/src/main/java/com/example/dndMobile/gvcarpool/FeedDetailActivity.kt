@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.NavUtils
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_feed_detail.*
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.feed_item.view.*
@@ -45,7 +46,14 @@ class FeedDetailActivity : AppCompatActivity() {
                 userReference.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         nameHeader.text = snapshot.child("fullName").value as String
-                        //TODO: Add user photo URI to user DB entry and pull it down here
+                        var photoUrl = snapshot.child("photoUrl").value as String
+
+                        //if the user has not set a profile picture, don't try to load a non-existent url
+                        //note: without this if statement, the app will crash.
+                        if(photoUrl != "") {
+                            //Picasso to load image.
+                            Picasso.get().load(photoUrl).into(profilePicture)
+                        }
                     }
                     override fun onCancelled(databaseError: DatabaseError) {}
                 })
