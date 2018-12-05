@@ -21,7 +21,6 @@ class LoginActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         loginButton.setOnClickListener{ _ ->
-            // TODO: Make and call firebase login function. For now, just launch main activity
             login()
         }
 
