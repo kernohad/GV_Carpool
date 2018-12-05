@@ -82,12 +82,12 @@ class ProfileFragment : Fragment() {
                     ridesGiven = (snapshot.child("ridesGiven").value as Long).toInt()
                     ridesTaken = (snapshot.child("ridesTaken").value as Long).toInt()
 
-                    nameTextView.text?.let{fullName}
-                    aboutEditText.setText(let{about})
-                    departureText.setText(let{departure})
-                    arrivalText.setText(let{arrival})
-                    ridesGivenText.text?.let{ridesGiven.toString()}
-                    ridesTakenText.text?.let{ridesTaken.toString()}
+                    nameTextView.text = fullName
+                    aboutEditText.setText(about)
+                    departureText.setText(departure)
+                    arrivalText.setText(arrival)
+                    ridesGivenText.text = ridesGiven.toString()
+                    ridesTakenText.text = ridesTaken.toString()
 
                     //Picasso to load image.
                     Picasso.get().load(auth!!.currentUser?.photoUrl).into(profilePicture)
@@ -129,6 +129,10 @@ class ProfileFragment : Fragment() {
             aboutEditText.setBackgroundResource(R.drawable.login_input_box)
             profilePicture.isEnabled = true
             editImage.visibility = View.VISIBLE
+            departureText.isEnabled = true
+            departureText.setBackgroundResource(R.drawable.login_input_box)
+            arrivalText.isEnabled = true
+            arrivalText.setBackgroundResource(R.drawable.login_input_box)
         }
 
         /** PROFILE PICTURE Listener **/
@@ -138,7 +142,6 @@ class ProfileFragment : Fragment() {
 
         /**SAVE Button Listener */
         saveButton.setOnClickListener{_ ->
-            //TODO: Store changes in firebase
 
             //If the profile picture has changed, update firebase profile
             if(picChanged) {
@@ -151,8 +154,8 @@ class ProfileFragment : Fragment() {
             }
 
             userReference.child("bio").setValue(aboutEditText.text.toString())
-            //TODO: Set common arrival/departures
-
+            userReference.child("commonArr").setValue(arrivalText.text.toString())
+            userReference.child("commonDep").setValue(departureText.text.toString())
 
             //Make things not editable
             aboutEditText.isEnabled = false
@@ -161,6 +164,10 @@ class ProfileFragment : Fragment() {
             editButton.visibility = View.VISIBLE
             profilePicture.isEnabled = false
             editImage.visibility = View.INVISIBLE
+            departureText.isEnabled = false
+            departureText.setBackgroundResource(R.color.transparent)
+            arrivalText.isEnabled = false
+            arrivalText.setBackgroundResource(R.color.transparent)
 
             val toast = Toast.makeText(context,"Profile Updated!", Toast.LENGTH_SHORT)
             toast.setGravity(Gravity.BOTTOM, 0, 170)
