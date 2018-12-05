@@ -159,9 +159,6 @@ class ProfileFragment : Fragment() {
                         }
             }
 
-            //Get either a new Url or a copy of the existing one to save
-            //getNewUrl()
-
             userReference.child("bio").setValue(aboutEditText.text.toString())
             userReference.child("commonArr").setValue(arrivalText.text.toString())
             userReference.child("commonDep").setValue(departureText.text.toString())
@@ -184,27 +181,6 @@ class ProfileFragment : Fragment() {
 
             picChanged = false;
         }
-    }
-
-    //Get the new photo's URL to save to the database
-    private fun getNewUrl(){
-
-        // Initialize firebase reference
-        auth = FirebaseAuth.getInstance()
-
-        // Get reference to current Users DB
-        val currentUser: FirebaseUser = auth?.currentUser!!
-        val userId = currentUser.uid
-        val userReference = databaseReference!!.child(userId)
-
-        userReference.addListenerForSingleValueEvent(object : ValueEventListener {
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                photoUrl = auth!!.currentUser?.photoUrl.toString()
-                userReference.child("photoUrl").setValue(photoUrl)
-            }
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
     }
 
     /**
