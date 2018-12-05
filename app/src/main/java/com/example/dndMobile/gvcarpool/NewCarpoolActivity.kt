@@ -17,7 +17,7 @@ class NewCarpoolActivity : AppCompatActivity() {
     // Reference to firebase authenticator and DB
     private var auth: FirebaseAuth? = null
     private var databaseReference: DatabaseReference? = null
-    private var type = "offer"
+    private var type = "Offer"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +28,12 @@ class NewCarpoolActivity : AppCompatActivity() {
 
         // Set click listners to toggle type
         offerButton.setOnClickListener { _ ->
-            type = "offer"
+            type = "Offer"
             toggleType()
         }
 
         requestButton.setOnClickListener { _ ->
-            type = "request"
+            type = "Request"
             toggleType()
         }
 
@@ -122,10 +122,10 @@ class NewCarpoolActivity : AppCompatActivity() {
 
     private fun toggleType(){
         // Set type colors
-        if(type == "offer"){
+        if(type == "Offer"){
             offerButton.setBackgroundResource(R.drawable.offer_background)
             requestButton.setBackgroundResource(R.drawable.neutral_background)
-        }else if(type == "request"){
+        }else if(type == "Request"){
             offerButton.setBackgroundResource(R.drawable.neutral_background)
             requestButton.setBackgroundResource(R.drawable.request_background)
         }

@@ -33,7 +33,6 @@ class ProfileFragment : Fragment() {
     private var databaseReference: DatabaseReference? = null
     private var profileUpdates: UserProfileChangeRequest? = null
 
-
     //Database vars
     private var fullName: String? = null
     private var about: String? = null

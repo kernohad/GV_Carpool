@@ -13,9 +13,9 @@ class ProfileActivity : AppCompatActivity() {
 
         // Get the extra (DB data) from the intent
         val extras = intent.extras ?: return
-        val name = extras.getString("data")
+        val userId = extras.getString("userId")
 
        // TODO: Use data from DB and set all the fields
-        nameTextView.text = name
+        nameTextView.text = userId
     }
 }

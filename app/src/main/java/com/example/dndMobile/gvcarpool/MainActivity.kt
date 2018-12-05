@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnFragmentInteractionList
     private var auth: FirebaseAuth? = null
 
     override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
