@@ -3,6 +3,7 @@ package com.example.dndMobile.gvcarpool
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -11,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -19,6 +22,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile.*
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
+import java.io.File
 
 //Request code for photo picker
 private const val READ_REQUEST_CODE: Int = 42
@@ -32,6 +39,11 @@ class ProfileFragment : Fragment() {
     private var auth: FirebaseAuth? = null
     private var databaseReference: DatabaseReference? = null
     private var profileUpdates: UserProfileChangeRequest? = null
+
+    //Firebase Storage for profile pictures
+//    private var storage: FirebaseStorage? = null
+    private var storageReference: StorageReference? = null
+    private var uriForStorage: Uri? = null
 
     //Database vars
     private var fullName: String? = null
@@ -60,6 +72,8 @@ class ProfileFragment : Fragment() {
         // Set DB reference to Users DB
         databaseReference = FirebaseDatabase.getInstance().reference.child("Users")
 
+        // Set storage reference
+        storageReference = FirebaseStorage.getInstance().reference
 
         var toast = Toast.makeText(context,"Loading Profile..", Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.BOTTOM, 0, 170)
@@ -148,16 +162,51 @@ class ProfileFragment : Fragment() {
         /**SAVE Button Listener */
         saveButton.setOnClickListener{_ ->
 
+            var waitingForPhoto = false
             //If the profile picture has changed, update firebase profile
             if(picChanged) {
+                waitingForPhoto = true
                 auth!!.currentUser?.updateProfile(profileUpdates!!)
                         ?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 Log.d(TAG, "User profile updated.")
-                                userReference.child("photoUrl").setValue(auth!!.currentUser?.photoUrl.toString())
+
+                                //TODO: Upload photo to firebase storage
+                                var uploadTask = storageReference!!.child("$userId/profilePicture").putFile(uriForStorage!!)
+
+                                uploadTask.addOnFailureListener {
+                                    val toast = Toast.makeText(context,"Photo Upload Failed", Toast.LENGTH_SHORT)
+                                    toast.setGravity(Gravity.BOTTOM, 0, 170)
+                                    toast.show()
+                                    waitingForPhoto = false
+                                }.addOnSuccessListener {
+                                    val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
+                                        if (!task.isSuccessful) {
+                                            task.exception?.let {
+                                                throw it
+                                            }
+                                        }
+                                        return@Continuation storageReference!!.child("$userId/profilePicture").downloadUrl
+                                    }).addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+
+                                            //Set the photo uri to the database
+                                            val downloadUri = task.result
+                                            userReference.child("photoUrl").setValue(downloadUri.toString())
+                                        }else {
+                                            val toast = Toast.makeText(context,"Photo Upload Failed", Toast.LENGTH_SHORT)
+                                            toast.setGravity(Gravity.BOTTOM, 0, 170)
+                                            toast.show()
+                                        }
+                                        waitingForPhoto = false
+                                    }
+                                }
                             }
                         }
             }
+
+            //busy wait until asynch photo stuff is complete
+            //while(waitingForPhoto){}
 
             userReference.child("bio").setValue(aboutEditText.text.toString())
             userReference.child("commonArr").setValue(arrivalText.text.toString())
@@ -210,7 +259,7 @@ class ProfileFragment : Fragment() {
             picChanged = true;
             resultData?.data?.also { uri ->
                 Log.i(TAG, "Uri: $uri")
-
+                uriForStorage = uri
                 profilePicture.setImageURI(uri)
                 // Create a Storage Ref w/ username
                 profileUpdates = UserProfileChangeRequest.Builder()

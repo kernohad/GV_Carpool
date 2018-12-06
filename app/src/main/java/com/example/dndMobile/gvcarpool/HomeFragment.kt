@@ -14,14 +14,11 @@ import kotlinx.android.synthetic.main.feed_item.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.support.v7.widget.DividerItemDecoration
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import com.example.dndMobile.gvcarpool.R.string.email
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import android.R.attr.entries
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 
 
 class HomeFragment : Fragment() {
@@ -158,6 +155,14 @@ class HomeFeedAdapter(private val dataset: Array<DataSnapshot>, val clickListene
             override fun onDataChange(snapshot: DataSnapshot) {
                  holder.layout.nameField.text = snapshot.child("fullName").value as String
                 //TODO: Add user photo URI to user DB entry and pull it down here
+                var photoUrl = snapshot.child("photoUrl").value as String
+
+                //if the user has not set a profile picture, don't try to load a non-existent url
+                //note: without this if statement, the app will crash.
+                if(photoUrl != "") {
+                    //Picasso to load image.
+                    Picasso.get().load(photoUrl).into(holder.layout.profilePicture)
+                }
             }
             override fun onCancelled(databaseError: DatabaseError) {}
         })
