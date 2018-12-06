@@ -171,7 +171,7 @@ class ProfileFragment : Fragment() {
                             if (task.isSuccessful) {
                                 Log.d(TAG, "User profile updated.")
 
-                                //TODO: Upload photo to firebase storage
+                                // Upload photo to firebase storage
                                 var uploadTask = storageReference!!.child("$userId/profilePicture").putFile(uriForStorage!!)
 
                                 uploadTask.addOnFailureListener {
