@@ -32,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         val extras = intent.extras ?: return
         val userId = extras.getString("userId")
 
-       // TODO: Use data from DB and set all the fields
+       // Use data from DB and set all the fields
         //nameTextView.text = userId
 
         // Initialize firebase reference
