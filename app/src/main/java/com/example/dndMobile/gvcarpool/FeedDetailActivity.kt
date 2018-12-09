@@ -37,6 +37,7 @@ class FeedDetailActivity : AppCompatActivity() {
         var type = ""
         var userId = ""
         var seatsAvailable = 0
+        var notes = ""
 
         // Get User name and Profile Picture
         rideReference.addValueEventListener(object : ValueEventListener {
@@ -76,6 +77,7 @@ class FeedDetailActivity : AppCompatActivity() {
                 totalSeatsField.text = snapshot.child("total_seats").value as String
                 seatsAvailableField.text = snapshot.child("seats_available").value as String
                 gasMoneyField.text = snapshot.child("gas_money").value as String
+                notesField.text = snapshot.child("notes").value as String
 
                 seatsAvailable = (snapshot.child("seats_available").value as String).toInt()
 
