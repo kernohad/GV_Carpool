@@ -154,7 +154,8 @@ class HomeFeedAdapter(private val dataset: Array<DataSnapshot>, val clickListene
         userReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                  holder.layout.nameField.text = snapshot.child("fullName").value as String
-                //TODO: Add user photo URI to user DB entry and pull it down here
+
+                // Add user photo URI to user DB entry and pull it down here
                 var photoUrl = snapshot.child("photoUrl").value as String
 
                 //if the user has not set a profile picture, don't try to load a non-existent url
