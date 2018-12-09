@@ -1,6 +1,7 @@
 package com.example.dndMobile.gvcarpool
 
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -14,7 +15,9 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 class RadarFragment : Fragment(), OnMapReadyCallback {
@@ -66,11 +69,18 @@ class RadarFragment : Fragment(), OnMapReadyCallback {
             if(location != null){
                 lastLocation = location
                 val currLatLon = LatLng(location.latitude, location.longitude)
+                placeMarker(currLatLon)
                 gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currLatLon, 12f))
             }
         }
+    }
 
-
+    private fun placeMarker(location: LatLng){
+        val markerOptions = MarkerOptions().position(location)
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_AZURE
+        ))
+        gMap.addMarker(markerOptions)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
