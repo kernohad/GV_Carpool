@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".NewCarpoolActivity"
-        tools:layout_editor_absoluteY="81dp">
+        tools:layout_editor_absoluteY="81dp"
+        android:id="@+id/newRideRoot">
 
         <TextView
             android:id="@+id/toLabel"
@@ -20,7 +21,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/to_label"
+            android:text="@string/to_label_required"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/offerButton" />
@@ -38,7 +39,8 @@
             android:inputType="textPostalAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/toLabel"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/fromLabel"
@@ -48,7 +50,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/from_label"
+            android:text="@string/from_label_required"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toField" />
@@ -66,7 +68,8 @@
             android:inputType="textPostalAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fromLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/fromLabel"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/whenLabel"
@@ -76,7 +79,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/when_label"
+            android:text="@string/when_label_required"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fromField" />
@@ -94,7 +97,8 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/whenLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/whenLabel"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/totalSeatsLabel"
@@ -104,7 +108,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/total_seats_label"
+            android:text="@string/total_seats_label_required"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/whenField" />
@@ -122,7 +126,8 @@
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalSeatsLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/totalSeatsLabel"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/gasMoneyLabel"
@@ -151,7 +156,9 @@
             android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gasMoneyLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/gasMoneyLabel"
+            tools:ignore="Autofill"
+            android:drawableStart="@drawable/ic_dollar_24" />
 
         <TextView
             android:id="@+id/notesLabel"
@@ -185,7 +192,8 @@
             android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notesLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/notesLabel"
+            tools:ignore="Autofill" />
 
         <Button
             android:id="@+id/submitButton"

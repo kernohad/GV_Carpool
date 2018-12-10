@@ -2,7 +2,9 @@ package com.example.dndMobile.gvcarpool
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.text.InputType.TYPE_NULL
+import android.text.TextUtils
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -92,25 +94,33 @@ class NewCarpoolActivity : AppCompatActivity() {
 
         submitButton.setOnClickListener{ _ ->
 
-            // TODO: Field Validation. Make sure required fields are not empty.
+            // Check the toField, fromField, whenField, and totalSeats Field are not empty
+            if(!TextUtils.isEmpty(toField.text.toString()) && !TextUtils.isEmpty(fromField.text.toString()) &&
+                    !TextUtils.isEmpty(whenField.text.toString()) && !TextUtils.isEmpty(totalSeatsField.text.toString())){
+                // Set DB reference specific ride and save data
+                val rideDb = databaseReference!!.child(Date().toString())        // Get Current Date time and use as Ride ID
+                rideDb.child("user").setValue(auth?.currentUser!!.uid)
+                rideDb.child("type").setValue(type)
+                rideDb.child("to").setValue(toField.text.toString())
+                rideDb.child("from").setValue(fromField.text.toString())
+                rideDb.child("when").setValue(whenField.text.toString())
+                rideDb.child("total_seats").setValue(totalSeatsField.text.toString())
+                rideDb.child("gas_money").setValue(gasMoneyField.text.toString())
+                rideDb.child("seats_available").setValue(totalSeatsField.text.toString())
+                rideDb.child("notes").setValue(notesField.text.toString())
 
-            // Set DB reference specific ride and save data
-            val rideDb = databaseReference!!.child(Date().toString())        // Get Current Date time and use as Ride ID
-            rideDb.child("user").setValue(auth?.currentUser!!.uid)
-            rideDb.child("type").setValue(type)
-            rideDb.child("to").setValue(toField.text.toString())
-            rideDb.child("from").setValue(fromField.text.toString())
-            rideDb.child("when").setValue(whenField.text.toString())
-            rideDb.child("total_seats").setValue(totalSeatsField.text.toString())
-            rideDb.child("gas_money").setValue(gasMoneyField.text.toString())
-            rideDb.child("seats_available").setValue(totalSeatsField.text.toString())
-            rideDb.child("notes").setValue(notesField.text.toString())
+                // Display message and finish activity
+                Toast.makeText(this,
+                        "New $type was created.",
+                        Toast.LENGTH_SHORT).show()
+                finish()
+            }else{
+                // One was empty, display mesage to user
+                Snackbar.make(newRideRoot, "Please fill out all required fields.", Snackbar.LENGTH_SHORT).show()
 
-            // Display message and finish activity
-            Toast.makeText(this,
-                    "New $type was created.",
-                    Toast.LENGTH_SHORT).show()
-            finish()
+            }
+
+
 
         }
 

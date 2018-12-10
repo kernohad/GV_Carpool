@@ -43,4 +43,8 @@
     <string name="when_do_you_want_to_leave">When do you want to leave?</string>
     <string name="where_are_you_leaving_from">Where are you leaving from?</string>
     <string name="where_do_you_want_to_go">Where do you want to go?</string>
+    <string name="to_label_required">To: (Required)</string>
+    <string name="from_label_required">From: (Required)</string>
+    <string name="when_label_required">When: (Required)</string>
+    <string name="total_seats_label_required">Total Seats: (Required)</string>
 </resources>
